@@ -1,0 +1,48 @@
+$card-height: 12rem;
+$card-width: 18rem;
+
+.Deck {
+    display: flex;
+
+    height: 100vh;
+}
+
+.Deck-cards {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    height: 300px;
+}
+
+.Deck-cardWrapper {
+    flex-shrink: 0;
+
+    position: relative;
+    width: $card-width;
+    height: $card-height;
+}
+
+.Deck-next, .Deck-prev {
+    flex-shrink: 0;
+
+    padding: $card-height / 3;
+
+    background: transparent;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 3em;
+
+    &:focus {
+        outline: none;
+    }
+    &:hover, &:focus {
+        color: red;
+    }
+
+}

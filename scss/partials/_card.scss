@@ -1,0 +1,147 @@
+$card-height: 12rem;
+$card-width: 18rem;
+$card-change-duration: 400ms;
+$card-flip-duration: 400ms;
+
+@function card-mask($opacity) {
+  @return linear-gradient(to right,
+    rgba(255, 255, 255, $opacity),
+    rgba(255, 255, 255, $opacity)
+  );
+}
+
+@keyframes card-slide-from-right {
+    from {
+        transform: translateX(-100px) rotateY(-80deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    to {
+        transform: translateX(0px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes card-slide-from-left {
+    from {
+        transform: translateX(100px) rotateY(80deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    to {
+        transform: translateX(0px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes card-flip-cw {
+    from {
+        transform: rotateY(0deg) scale(1.0);
+    }
+    30% {
+        transform: rotateY(0deg) scale(1.2);
+    }
+    to {
+        transform: rotateY(90deg) scale(1.25);
+    }
+}
+
+@keyframes card-flip-ccw {
+    from {
+        transform: rotateY(0deg) scale(1.0);
+    }
+    30% {
+        transform: rotateY(0deg) scale(1.2);
+    }
+    to {
+        transform: rotateY(-90deg) scale(1.25);
+    }
+}
+
+.Card {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: $card-width;
+    height: $card-height;
+
+    font-family: sans-serif;
+}
+
+.Card-face {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+
+    margin: 0;
+    width: $card-width;
+    height: $card-height;
+
+    background-color: grey;
+    border: 1px solid grey;
+    cursor: pointer;
+    font-size: 2em;
+
+    &[data-language='german'] {
+        background-image: card-mask(0.6),
+            linear-gradient(to bottom, black 0%, black 33%, red 33%, red 66%, yellow 66%);
+    }
+
+    &[data-language='english'] {
+        background-image: card-mask(0.6), url('/images/uk-flag.svg');
+    }
+}
+
+.Card-language {
+    display: none;
+}
+
+.Card-text {
+    text-align: center;
+}
+
+// React animation styling
+.Card--forward-enter {
+    opacity: 0;
+}
+.Card--forward-enter-active {
+    animation: card-slide-from-right $card-change-duration ease-out $card-change-duration;
+}
+.Card--forward-leave {
+}
+.Card--forward-leave-active {
+    animation: card-slide-from-left $card-change-duration ease-in reverse;
+}
+
+.Card--backward-enter {
+    opacity: 0;
+}
+.Card--backward-enter-active {
+    animation: card-slide-from-left $card-change-duration ease-out $card-change-duration;
+}
+.Card--backward-leave {
+}
+.Card--backward-leave-active {
+    animation: card-slide-from-right $card-change-duration ease-in reverse;
+}
+
+.Card-face--enter {
+    transform: rotateY(-90deg);
+}
+.Card-face--enter-active {
+    animation: card-flip-cw $card-flip-duration ease-out $card-flip-duration reverse;
+}
+.Card-face--leave {
+}
+.Card-face--leave-active {
+    animation: card-flip-ccw $card-flip-duration ease-out;
+}
+
