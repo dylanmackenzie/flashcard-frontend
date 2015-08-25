@@ -56,7 +56,7 @@ class DeckViewController extends React.Component {
 
     let sides = [
       { func: c => c.word, lang: 'german', name: 'word' },
-      { func: c => c.en.defs, lang: 'english', name: 'defs' }
+      { func: c => c.en.defs[0], lang: 'english', name: 'defs' }
     ]
     let transitionName = 'Card-'
     transitionName += this.state.reverseAnimation ? '-backward' : '-forward'
